@@ -21,6 +21,12 @@
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
+
+		<style>
+			pre {
+				width: 105% !important;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
@@ -84,7 +90,10 @@
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
 					{ src: 'plugin/highlight/highlight.js', async: true }
-				]
+				],
+				// Custom config
+				hash: true,
+				history: false,
 			});
 		</script>
 	</body>
