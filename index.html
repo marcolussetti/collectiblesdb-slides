@@ -48,33 +48,77 @@
 						<p>Objectives:</p>
 						<ul>
 							<li>Allow for user-created content</li>
-							<li>Use the latest RESTful API + SSR React + Typescript</li>
+							<li>Use the latest RESTful API + SSR React Frontend + Typescript</li>
 							<li>Keep it generic at its core: from pens to stamps to coins to comics</li>
 							<li>Strong infrastructure foundation for quick iterative development</li>
 						</ul>
 					</div>
 				</section>
 				<section>
-					<h1>What is PensDB?</h1>
+					<h2>What is PensDB?</h2>
 					<p>First deployment of CollectiblesDB focused on Fountain Pens</p>
 					<p>Proof of concept of the project's feasibility: is it practical to develop this type of project from scratch with this (soon to be discussed) tech stack?</p>
 				</section>
 				<section>
-					<h1>Program for Presentation</h1>
+					<h2>Program for Presentation</h2>
 					<div>
 						<ul>
-							<li>Project Design</li>
+							<li>Project Philosophy</li>
 							<li>Tech Stack</li>
 							<li>Database/Model Structure</li>
 							<li>API Endpoints</li>
 							<li>Frontend Demo</li>
 							<li>Live code deployment</li>
+							<li>Lessons learned</li>
+							<li>... a lot in 15 minutes so going to only cover the very basics!</li>
 						</ul>
 					</div>
 				</section>
 				<section>
-
+					<h2>Project Philosophy</h2>
+					<p>Very, very briefly:</p>
+					<div>
+						<ul>
+							<li>Multirepo</li>
+							<li>Classic REST API + React Frontend</li>
+							<li>Frontend must be server-side rendered for SEO, speed</li>
+							<li>Focus on learning &amp; integrating libraries rather than re-inventing the wheel</li>
+							<li>Turned out that learning &amp; integrating libraries... still pretty damn hard to make everything work together!</li>
+						</ul>
+					</div>
 				</section>
+				<section
+					data-background="https://collectibles.sfo2.cdn.digitaloceanspaces.com/slides/Technologies_frontend_backend.png"
+					data-background-size="contain"
+				>
+				</section>
+				<section
+					data-background="https://collectibles.sfo2.cdn.digitaloceanspaces.com/slides/Technologies_shared.png"
+					data-background-size="contain"
+				>
+				</section>
+				<section>
+					<h2>Database Structure</h2>
+					<!-- TODO -->
+				</section>
+				<section data-markdown>
+					## API Endpoints
+
+					14 endpoints
+
+					[API Documentation](https://api.pensdb.com/docs/swagger/)
+
+					### Examples
+
+					```sh
+					curl 'https://api.pensdb.com/api/v1/product/' | jq -C | less -R
+
+					curl 'https://api.pensdb.com/api/v1/productrevision/' | jq -C | less -R
+
+					curl 'https://api.pensdb.com/api/v1/media/' | jq -C | less -R
+					```
+				</section>
+
 			</div>
 		</div>
 
