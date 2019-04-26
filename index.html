@@ -63,10 +63,12 @@
 					<h2>Program for Presentation</h2>
 					<div>
 						<ul>
+							<li>Project Design</li>
 							<li>Project Philosophy</li>
 							<li>Tech Stack</li>
 							<li>Database/Model Structure</li>
 							<li>API Endpoints</li>
+							<li>Admin Panel</li>
 							<li>Frontend Demo</li>
 							<li>Live code deployment</li>
 							<li>Lessons learned</li>
@@ -74,9 +76,45 @@
 						</ul>
 					</div>
 				</section>
+				<section data-markdown>
+					## Project Design
+
+					- Split off content (revision) from continuous organization (parent)
+					- Centered around products &amp; components
+					- Ancillary units: types, product lines, manufacturers, countries, etc.
+					- Keep API &amp; admin panel together for simplicity
+					- Configuration (what component goes where) via JSON for flexibility, enforced via frontend and configuration trigger checks (future)
+				</section>
+				<section data-markdown>
+						### Configuration example
+
+						```json
+						{
+							"components": {
+							  "fountain-pen-nib": {
+								"required": true,
+								"component-lines": [
+								  "pilot-5-gold-nibs"
+								]
+							  },
+							  "fountain-pen-body": {
+								"required": true,
+								"component-lines": [
+								  "pilot-custom-74-bodies"
+								]
+							  },
+							  "fountain-pen-filling-mechanism": {
+								"required": false,
+								"component-lines": [
+								  "pilot-converters"
+								]
+							  }
+							}
+						  }
+						```
+				</section>
 				<section>
 					<h2>Project Philosophy</h2>
-					<p>Very, very briefly:</p>
 					<div>
 						<ul>
 							<li>Multirepo</li>
@@ -97,14 +135,15 @@
 					data-background-size="contain"
 				>
 				</section>
-				<section>
-					<h2>Database Structure</h2>
-					<!-- TODO -->
+				<section
+					data-background="https://collectibles.sfo2.cdn.digitaloceanspaces.com/slides/condensed_manual.png"
+					data-background-size="contain"
+				>
 				</section>
 				<section data-markdown>
 					## API Endpoints
 
-					14 endpoints
+					16 endpoints
 
 					[API Documentation](https://api.pensdb.com/docs/swagger/)
 
@@ -113,12 +152,109 @@
 					```sh
 					curl 'https://api.pensdb.com/api/v1/product/' | jq -C | less -R
 
-					curl 'https://api.pensdb.com/api/v1/productrevision/' | jq -C | less -R
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>
 
-					curl 'https://api.pensdb.com/api/v1/media/' | jq -C | less -R
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>			curl 'https://api.pensdb.com/api/v1/productrevision/' | jq -C | less -R
+
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>
+
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>			curl 'https://api.pensdb.com/api/v1/media/' | jq -C | less -R
+
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>			```
+				</section>
+				<section>
+					<h2>Admin Panel</h2>
+					<p>Very brief overview</p>
+					<p><a href="https://api.pensdb.com/EMJodmdXyG9HRozWl7hjagZAxWkXpcFf/" target="_blank">View Admin Panel</a></p>
+
+					<p>There's also management commands for common data fields and other operations via CLI</p>
+				<section>
+					<h2>Frontend Demo</h2>
+					<div>
+						<ul>
+							<li><a href="https://www.pensdb.com" target="_blank">Home</a></li>
+							<li><a href="https://www.pensdb.com/l/product/" target="_blank">Product List</a></li>
+							<li><a href="https://www.pensdb.com/d/product/safari/" target="_blank">Product Details</a></li>
+							<li><a href="https://www.pensdb.com/login/" target="_blank">Login</a></li>
+							<li><a href="https://www.pensdb.com/e/product/safari/" target="_blank">Edit Product Description</a> (in Markdown)</li>
+						</ul>
+					</div>
+				</section>
+				<section data-markdown>
+					## Live Deployment (Frontend)
+
+					```sh
+					cd ~/collectiblesdb/frontend
+					git status
+					git diff --cached
+
+					./deploy.sh
+					```
+
+					```bash
+					#!/bin/sh -v
+
+					npm install
+					npm run build
+
+					eval $(docker-machine env prod-frontend)
+					docker stop collectiblesdb_frontend && docker rm collectiblesdb_frontend  && docker build -t marcolussetti/collectiblesdb_frontend . && docker run --name collectiblesdb_frontend -p 80:3000 -d marcolussetti/collectiblesdb_frontend
 					```
 				</section>
+				<section data-markdown>
+						## Live Deployment (Backend)
 
+						```sh
+						cd ~/collectiblesdb/collectibles_backend
+						git status
+						git diff --cached
+
+						eval $(docker-machine env prod)
+						docker-compose -f production.yml stop
+						docker-compose -f production.yml build
+						docker-compose -f production.yml up
+						```
+
+						```sh
+						docker-compose -f production.yml up -d
+						```
+					</section>
+				<section>
+					<h2>Lessons Learned</h2>
+					<p>Last time a group attempted a React app as final project, they never got past requirements, so I guess this went alright but still...</p>
+					<p>What did I learn from this project?</p>
+				</section>
+				<section>
+					<h2>Lessons Learned (tech)</h2>
+					<div>
+						<ul>
+							<li><em>Integrating libraries in webdev is a mess</em>: spent about 65-75% of time on learning &amp; integrating</li>
+							<li><em>Server-Side Rendering is hard</em>: alters React's Lifecycle dramatically, especially for authentication</li>
+							<li><em>Django REST Framework is nice, but confusing</em>: very steep learning curve, after mastering very quick to work with</li>
+							<li><em>Docker is fantastic</em>: while libraries and development were a nightmare, once the deployment setup was in place, it was so easy to make releases</li>
+						</ul>
+					</div>
+				</section>
+				<section>
+					<h2>Lessons Learned (Project Management)</h2>
+					<div>
+						<ul>
+							<li><em>I am terrible at estimates</em>: realistically, I should have scaled the scope of the project down a *lot*, maybe focused on just a well ironed out backend &amp; infrastructure</li>
+							<li><em>Should have done a group project:</em> definitively would have needed one or two more people to tackle this project properly</li>
+							<li><em>Good deployment pipeline is worth its weight in gold</em>: well, it doesn't weight anything but imagine it does</li>
+						</ul>
+					</div>
+				</section>
 			</div>
 		</div>
 
